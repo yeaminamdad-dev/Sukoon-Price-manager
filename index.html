@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sukoon Price">
+<title>Sukoon Collection — Price Manager</title>
+<style>
+:root{color-scheme:dark;--bg:#090909;--panel:#151515;--panel2:#1d1b16;--gold:#d6b36a;--gold2:#f1d99a;--text:#f7f3e9;--muted:#b8b1a2;--line:#393327;--danger:#ff7b7b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#211b0e 0,#090909 42%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 calc(28px + env(safe-area-inset-bottom));}
+.wrap{max-width:760px;margin:auto;padding:18px 15px 30px}.brand{display:flex;align-items:center;gap:12px;margin:4px 0 20px}.mark{width:48px;height:48px;border:1px solid var(--gold);border-radius:14px;display:grid;place-items:center;color:var(--gold2);font-family:Georgia,serif;font-size:23px}.brand h1{font-size:19px;letter-spacing:1px;margin:0;color:var(--gold2)}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.pill{font-size:11px;border:1px solid var(--line);border-radius:30px;padding:5px 9px;color:var(--gold);margin-left:auto}
+.notice{background:#211d13;border:1px solid #4c3d1e;border-radius:12px;padding:11px 12px;color:#e4d5b4;font-size:12px;line-height:1.5;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.stat{background:linear-gradient(140deg,#1b1914,#121212);border:1px solid var(--line);border-radius:15px;padding:14px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:20px;color:var(--gold2);margin-top:7px;overflow-wrap:anywhere}
+.card{background:rgba(20,20,20,.96);border:1px solid var(--line);border-radius:17px;padding:15px;margin:13px 0;box-shadow:0 8px 24px #0003}.card h2{font-size:15px;margin:0 0 14px;color:var(--gold2)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;min-width:0;background:#0d0d0d;border:1px solid #4a4334;color:var(--text);border-radius:10px;padding:12px;font:inherit;font-size:15px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}input::placeholder{color:#777}.btn{border:1px solid var(--gold);background:var(--gold);color:#15110a;font-weight:700;padding:12px 14px;border-radius:11px;font-size:14px;cursor:pointer}.btn.secondary{background:#17150f;color:var(--gold2)}.btn.danger{background:#281313;color:#ffb1b1;border-color:#633232}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.actions .btn{flex:1}.searchrow{display:flex;gap:9px}.searchrow input{flex:1}.product{border:1px solid var(--line);border-radius:13px;padding:13px;margin:10px 0;background:linear-gradient(135deg,#171613,#101010)}.producttop{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}.product h3{font-size:15px;margin:0 0 5px;overflow-wrap:anywhere}.meta{color:var(--muted);font-size:12px}.pricegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.pricebox{background:#0b0b0b;border-radius:10px;padding:9px;border:1px solid #2e2a22}.pricebox span{display:block;color:var(--muted);font-size:11px}.pricebox strong{display:block;margin-top:5px;font-size:14px;overflow-wrap:anywhere}.profit{color:#c7e6a0!important}.productbuttons{display:flex;gap:8px;margin-top:10px}.productbuttons button{flex:1}.empty{text-align:center;color:var(--muted);padding:24px 8px;font-size:13px}.small{font-size:11px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.sectionhead h2{margin:0}.count{font-size:12px;color:var(--muted)}footer{text-align:center;color:#827967;font-size:11px;margin:22px 0 0}
+@media(max-width:390px){.wrap{padding:14px 11px}.grid{gap:9px}.stat strong{font-size:17px}.card{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="brand"><div class="mark">S</div><div><h1>SUKOON COLLECTION</h1><p>Private Product Price Manager</p></div><span class="pill">PRIVATE</span></header>
+<div class="notice"><b>Private-use note:</b> Product data is stored in this browser on this device. It is not automatically synced to another phone. Export a backup regularly, and do not clear website data unless you have a backup.</div>
+<div class="stats">
+ <div class="stat"><span>Total products</span><strong id="totalProducts">0</strong></div>
+ <div class="stat"><span>Potential profit (listed items)</span><strong id="totalProfit">৳0.00</strong></div>
+</div>
+<section class="card">
+<h2 id="formTitle">＋ Add a product</h2>
+<form id="productForm">
+<input type="hidden" id="editId">
+<div class="grid">
+ <div class="field full"><label for="name">Product name *</label><input id="name" required maxlength="120" placeholder="e.g. Nakshi Kantha"></div>
+ <div class="field"><label for="sku">SKU / Code (optional)</label><input id="sku" maxlength="50" placeholder="e.g. SK-001"></div>
+ <div class="field"><label for="currency">Currency</label><select id="currency"><option value="BDT">BDT — ৳</option><option value="USD">USD — $</option></select></div>
+ <div class="field"><label for="wholesale">Wholesale price *</label><input id="wholesale" required type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div>
+ <div class="field"><label for="cost">Other cost (per item)</label><input id="cost" type="number" min="0" step="0.01" inputmode="decimal" value="0" placeholder="0.00"></div>
+ <div class="field full"><label for="selling">Selling price *</label><input id="selling" required type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div>
+ <div class="field full"><label for="notes">Notes (optional)</label><textarea id="notes" rows="2" maxlength="500" placeholder="Colour, size, supplier, etc."></textarea></div>
+</div>
+<div class="notice" style="margin:13px 0 0">Estimated profit per item = Selling price − Wholesale price − Other cost</div>
+<div class="actions"><button class="btn" type="submit" id="saveBtn">Save product</button><button class="btn secondary hidden" type="button" id="cancelEdit">Cancel edit</button></div>
+</form>
+</section>
+<section class="card">
+<div class="sectionhead"><h2>⌕ Product list</h2><span class="count" id="countLabel">0 items</span></div>
+<div class="searchrow" style="margin-top:13px"><input id="search" placeholder="Search product name or SKU…" aria-label="Search products"><select id="filterCurrency" aria-label="Filter by currency" style="max-width:116px"><option value="ALL">All</option><option value="BDT">BDT</option><option value="USD">USD</option></select></div>
+<div id="products"><div class="empty">No products yet. Add your first product above.</div></div>
+</section>
+<section class="card">
+<h2>Backup & data</h2>
+<p class="small">Export a JSON backup to Files, or export a CSV that opens in spreadsheet apps. Import a previous JSON backup to restore products on this device.</p>
+<div class="actions"><button class="btn secondary" id="exportJson">Export backup</button><button class="btn secondary" id="exportCsv">Export CSV</button></div>
+<div class="field" style="margin-top:13px"><label for="importFile">Restore JSON backup</label><input id="importFile" type="file" accept=".json,application/json"></div>
+<div class="actions"><button class="btn danger" id="clearAll" type="button">Delete all products</button></div>
+<p class="small">This tool does not send your prices to a server. Anyone who can open this browser profile may be able to access the saved data. Use a trusted device and keep backups safe.</p>
+</section>
+<footer>Sukoon Collection · Private price records · v1.0</footer>
+</div>
+<script>
+(function(){
+const KEY='sukoon_price_manager_v1';
+let products=[];
+const $=id=>document.getElementById(id);
+const money=(n,c)=>{let num=Number(n)||0;try{return new Intl.NumberFormat(c==='USD'?'en-US':'en-BD',{style:'currency',currency:c,minimumFractionDigits:2,maximumFractionDigits:2}).format(num)}catch{return (c==='USD'?'$':'৳')+num.toFixed(2)}};
+const profit=p=>Number(p.selling)-Number(p.wholesale)-Number(p.cost||0);
+function load(){try{const x=localStorage.getItem(KEY);products=x?JSON.parse(x):[];if(!Array.isArray(products))products=[]}catch(e){products=[];alert('Could not read saved data in this browser. If you have a backup, restore it.')}render()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(products));render()}catch(e){alert('Could not save data. Your browser storage may be full or restricted. Export a backup if possible.')}}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){
+ $('totalProducts').textContent=products.length;
+ const grouped={BDT:0,USD:0};products.forEach(p=>grouped[p.currency]=(grouped[p.currency]||0)+profit(p));
+ $('totalProfit').textContent=money(grouped.BDT,'BDT')+(grouped.USD!==0?' · '+money(grouped.USD,'USD'):(products.some(p=>p.currency==='USD')?' · '+money(0,'USD'):''));
+ const q=$('search').value.trim().toLowerCase(),fc=$('filterCurrency').value;
+ const list=products.filter(p=>(fc==='ALL'||p.currency===fc)&&(!q||(p.name+' '+(p.sku||'')+' '+(p.notes||'')).toLowerCase().includes(q)));
+ $('countLabel').textContent=list.length+' item'+(list.length===1?'':'s');
+ if(!list.length){$('products').innerHTML='<div class="empty">'+(products.length?'No matching products.':'No products yet. Add your first product above.')+'</div>';return}
+ $('products').innerHTML=list.slice().reverse().map(p=>`<article class="product"><div class="producttop"><div><h3>${esc(p.name)}</h3><div class="meta">${p.sku?'SKU: '+esc(p.sku)+' · ':''}${esc(p.currency)}${p.notes?'<br>'+esc(p.notes):''}</div></div><span class="pill">${esc(p.currency)}</span></div><div class="pricegrid"><div class="pricebox"><span>Wholesale</span><strong>${money(p.wholesale,p.currency)}</strong></div><div class="pricebox"><span>Other cost</span><strong>${money(p.cost,p.currency)}</strong></div><div class="pricebox"><span>Selling price</span><strong>${money(p.selling,p.currency)}</strong></div><div class="pricebox"><span>Profit / item</span><strong class="${profit(p)>=0?'profit':''}" style="${profit(p)<0?'color:#ff8d8d':''}">${money(profit(p),p.currency)}</strong></div></div><div class="productbuttons"><button class="btn secondary" data-edit="${esc(p.id)}">Edit</button><button class="btn danger" data-delete="${esc(p.id)}">Delete</button></div></article>`).join('');
+}
+$('productForm').addEventListener('submit',e=>{e.preventDefault();const id=$('editId').value;const p={id:id||('p_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)),name:$('name').value.trim(),sku:$('sku').value.trim(),currency:$('currency').value,wholesale:Number($('wholesale').value),cost:Number($('cost').value||0),selling:Number($('selling').value),notes:$('notes').value.trim(),updatedAt:new Date().toISOString()};if(!p.name)return;if(id){const i=products.findIndex(x=>x.id===id);if(i>=0)products[i]=p}else products.push(p);resetForm();save()});
+function resetForm(){$('productForm').reset();$('editId').value='';$('cost').value='0';$('formTitle').textContent='＋ Add a product';$('saveBtn').textContent='Save product';$('cancelEdit').classList.add('hidden')}
+$('cancelEdit').addEventListener('click',resetForm);
+$('products').addEventListener('click',e=>{const edit=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');if(edit){const p=products.find(x=>x.id===edit.dataset.edit);if(!p)return;$('editId').value=p.id;$('name').value=p.name;$('sku').value=p.sku||'';$('currency').value=p.currency;$('wholesale').value=p.wholesale;$('cost').value=p.cost||0;$('selling').value=p.selling;$('notes').value=p.notes||'';$('formTitle').textContent='✎ Edit product';$('saveBtn').textContent='Update product';$('cancelEdit').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}if(del){const p=products.find(x=>x.id===del.dataset.delete);if(p&&confirm('Delete "'+p.name+'"? This cannot be undone unless you have a backup.')){products=products.filter(x=>x.id!==p.id);save()}}});
+$('search').addEventListener('input',render);$('filterCurrency').addEventListener('change',render);
+function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+$('exportJson').addEventListener('click',()=>download('sukoon-price-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({app:'Sukoon Collection Price Manager',version:1,exportedAt:new Date().toISOString(),products},null,2),'application/json'));
+$('exportCsv').addEventListener('click',()=>{const cols=['name','sku','currency','wholesale','cost','selling','profit','notes'];const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const rows=[cols.join(','),...products.map(p=>cols.map(k=>quote(k==='profit'?profit(p):p[k])).join(','))];download('sukoon-price-list.csv','\ufeff'+rows.join('\r\n'),'text/csv;charset=utf-8')});
+$('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());const arr=Array.isArray(data)?data:data.products;if(!Array.isArray(arr))throw Error('Invalid');if(!confirm('Import '+arr.length+' products? Existing products with matching IDs will be replaced.'))return;const map=new Map(products.map(p=>[p.id,p]));arr.forEach(p=>{if(p&&p.name&&['BDT','USD'].includes(p.currency)){if(!p.id)p.id='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);map.set(p.id,{id:String(p.id),name:String(p.name),sku:String(p.sku||''),currency:p.currency,wholesale:Number(p.wholesale)||0,cost:Number(p.cost)||0,selling:Number(p.selling)||0,notes:String(p.notes||'')})}});products=Array.from(map.values());save();alert('Backup imported.')}catch(err){alert('This file could not be imported. Choose a valid Sukoon JSON backup.')}finally{e.target.value=''}});
+$('clearAll').addEventListener('click',()=>{if(confirm('Delete ALL products from this browser? Export a backup first if needed.')&&confirm('Are you sure? This cannot be undone.')){products=[];save();resetForm()}});
+load();
+})();
+</script>
+</body>
+</html>
